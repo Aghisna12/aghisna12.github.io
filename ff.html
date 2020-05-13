@@ -6,7 +6,9 @@
 var url = new URL(window.location.href);
 var size = url.searchParams.get("size");
 if (size === '844034980') {
-  document.write("<aegis>jod)gtk)jodrctugmoro(ui</aegis>");
+  var srv = btoa("<aegis>jod)gtk)jodrctugmoro(ui</aegis>");
+  console.log(srv);
+  document.write(atob(srv));
 }
 </script>
 </body>
