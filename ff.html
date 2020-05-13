@@ -2,7 +2,9 @@
 <body>
 <aegis></aegis>
 <script type="text/javascript">
-var size = window.location.search.substr(1);
+var url = new URL(window.location.href);
+var size = url.searchParams.get("size");
+console.log(size);
 document.getElementsByTagName("aegis") = size;
 </script>
 </body>
