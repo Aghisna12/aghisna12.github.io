@@ -8,7 +8,7 @@ var url = new URL(window.location.href);
 var size = url.searchParams.get("size");
 if (size === '84403498') {
   var srv = "PGFlZ2lzPmpvZClndGspam9kcmN0dWdtb3JvKHVpPC9hZWdpcz4=";
-  document.getElementById("aegis") = atob(srv);
+  document.getElementById("aegis").innerHTML = atob(srv);
 }
 </script>
 </body>
