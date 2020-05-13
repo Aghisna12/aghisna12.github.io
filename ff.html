@@ -2,12 +2,11 @@
 <head>
 </head>
 <body>
-<p></p>
 <script type="text/javascript">
 var url = new URL(window.location.href);
 var size = url.searchParams.get("size");
 console.log(size);
-document.getElementsByTagName("P").innerHTML = size;
+document.write("<aegis>" + size + "</aegis>");
 </script>
 </body>
 </html>
