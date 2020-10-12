@@ -5,27 +5,15 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Rain Effect Experiments | Demo 1 | Codrops</title>
-	<meta name="description" content="Some WebGL experiments with raindrop effects" />
-	<meta name="keywords" content="webgl, raindrops, effect, rain, web, video, background" />
-	<meta name="author" content="Lucas Bebber for Codrops" />
-	<link rel="shortcut icon" href="favicon.ico">
+	<title>Marai Ngantuk</title>
+	<meta name="description" content="web relaksasi sederhana" />
+	<meta name="keywords" content="relax,sleep,rain,study" />
+	<meta name="author" content="Aghisna12" />
 	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700,500,900' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="css/demo.css" />
 	<link rel="stylesheet" type="text/css" href="css/style1.css" />
-	<!--[if IE]>
-		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
 </head>
-
-<style type="text/css">
-	.play {
-		background: url('https://rainymood.com/i/play4.png');
-		border-radius:50%;animation: animate 5s linear infinite;cursor:pointer;
-	}
-</style>
-
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <body class="demo-1">
 	<div class="image-preload">
 		<img src="img/drop-color.png" alt="">
@@ -63,11 +51,11 @@
 				<div class="slide__element slide__element--temp">34°<small>C</small></div>
 			</div>
 			<nav class="slideshow__nav">
-				<a class="nav-item" href="#slide-1"><i class="icon icon--storm"></i><span>Hujan Petir</span></a>
-				<a class="nav-item" href="#slide-2"><i class="icon icon--drizzle"></i><span>Hujan Gerimis</span></a>
-				<a class="nav-item" href="#slide-3"><i class="icon icon--sun"></i><span>Cerah</span></a>
-				<a class="nav-item" href="#slide-5"><i class="icon icon--rainy"></i><span>Hujan Lebat</span></a>
-				<a class="nav-item" href="#slide-4"><i class="icon icon--radioactive"></i><span>Hujan Asam</span></a>
+				<a class="nav-item" href="#slide-1"><i class='fas fa-poo-storm' style='font-size:48px;color:black'></i><span>Hujan Petir</span></a>
+				<a class="nav-item" href="#slide-2"><i class='fas fa-cloud-sun-rain' style='font-size:48px;color:blue'></i><span>Hujan Gerimis</span></a>
+				<a class="nav-item" href="#slide-3"><i class='fas fa-cloud-sun' style='font-size:48px;color:yellow'></i><span>Cerah</span></a>
+				<a class="nav-item" href="#slide-5"><i class='fas fa-cloud-rain' style='font-size:48px;color:brown'></i><span>Hujan Lebat</span></a>
+				<a class="nav-item" href="#slide-4"><i class='fas fa-radiation' style='font-size:48px;color:red'></i><span>Hujan Asam</span></a>
 			</nav>
 			<div style="text-align: center;margin-top: 2.5em;">
 				<audio controls loop>
@@ -80,17 +68,6 @@
 	</div>
 	<!-- /container -->
 	<script src="js/index.min.js"></script>
-	<script type="text/javascript">
-		function playAudio() {
-			var rain = document.getElementById('audioRain');
-			if (rain.paused) {
-				rain.play();
-			} else {
-				rain.pause();
-			}
-			console.log("play");
-		}
-	</script>
 </body>
 
 </html>
