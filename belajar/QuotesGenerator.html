@@ -27,9 +27,9 @@
 				ctx.fillText(text, canvas.width/2, canvas.height/2);
 				ctx.font = 'bold 22px Comic Sans MS';
 				ctx.fillText(by, (canvas.width / 2), (canvas.height / 2) + font_size);
+				window.location.search = canvas.toDataURL("image/jpeg");
 			}
 		}
-		window.location.href = "www.example.com";
 	</script>
 </body>
 </html>
