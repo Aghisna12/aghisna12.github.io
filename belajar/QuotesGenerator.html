@@ -2,11 +2,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv = "refresh" content = "2; url = https://www.aghisna.xyz" />
 	<title>Quotes Generator</title>
 </head>
 <body>
 	<canvas id='myCanvas'></canvas>
-	<p id='myResult'></p>
 	<script>
 		var data = window.location.search;
 		if (data.length > 0 && data.includes("::")) {
@@ -28,7 +28,6 @@
 				ctx.fillText(text, canvas.width/2, canvas.height/2);
 				ctx.font = 'bold 22px Comic Sans MS';
 				ctx.fillText(by, (canvas.width / 2), (canvas.height / 2) + font_size);
-				document.getElementById('myResult').innerHtml = canvas.toDataURL("image/jpeg");
 			}
 		}
 	</script>
