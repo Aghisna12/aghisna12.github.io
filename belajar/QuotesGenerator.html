@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Quotes Generator</title>
+</head>
+<body>
+	<canvas id='myCanvas'></canvas>
+</body>
+	<script>
+		var data = window.location.search;
+		if (data.length > 0 && data.includes("::")) {
+			var data_r = (data.substring(1)).split("::");
+			if (data_r.length == 2) {
+				var text = '❝' + decodeURIComponent(data_r[0]) + '❞';
+				var by = '-' + data_r[1] + '-';
+				var canvas = document.getElementById('myCanvas');
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+				var font_size = canvas.width / text.length;
+				if (font_size < 20) {
+					font_size = 20;
+				}
+				var ctx = canvas.getContext('2d');
+				ctx.font = font_size.toString() + 'px Comic Sans MS';
+				ctx.fillStyle = 'black';
+				ctx.textAlign = 'center';
+				ctx.fillText(text, canvas.width/2, canvas.height/2);
+				ctx.font = 'bold 22px Comic Sans MS';
+				ctx.fillText(by, (canvas.width / 2), (canvas.height / 2) + font_size);
+			}
+		}
+		//window.location.replace("www.example.com");
+	</script>
+</html>
