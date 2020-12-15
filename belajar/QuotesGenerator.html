@@ -39,7 +39,7 @@ html, body {
 				background.src = images[Math.floor(Math.random() * images.length)];;
 				background.onload = function(){
 					ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-					ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+					ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
 					ctx.fillRect(0, 0, canvas.width, canvas.height);
 					ctx.font = 'bold ' + font_size.toString() + 'px Comic Sans MS';
 					ctx.fillStyle = 'white';
