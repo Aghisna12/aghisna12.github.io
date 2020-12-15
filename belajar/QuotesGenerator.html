@@ -38,7 +38,8 @@ html, body {
 				var images = ['img/flower.jpg','img/rose.jpg','img/month.jpg'];
 				background.src = images[Math.floor(Math.random() * images.length)];;
 				background.onload = function(){
-					ctx.drawImage(background, 0, 0, canvas.width, canvas.height);   
+					ctx.globalAlpha = 0.4;
+					ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 					ctx.font = font_size.toString() + 'px Comic Sans MS';
 					ctx.fillStyle = 'white';
 					ctx.textAlign = 'center';
