@@ -26,13 +26,13 @@
 				background.src = images[Math.floor(Math.random() * images.length)];;
 				background.onload = function(){
 					ctx.drawImage(background, 0, 0, canvas.width, canvas.height);   
+					ctx.font = font_size.toString() + 'px Comic Sans MS';
+					ctx.fillStyle = 'white';
+					ctx.textAlign = 'center';
+					ctx.fillText(text, canvas.width/2, canvas.height/2);
+					ctx.font = 'bold 22px Comic Sans MS';
+					ctx.fillText(by, (canvas.width / 2), (canvas.height / 2) + font_size);
 				}
-				ctx.font = font_size.toString() + 'px Comic Sans MS';
-				ctx.fillStyle = 'red';
-				ctx.textAlign = 'center';
-				ctx.fillText(text, canvas.width/2, canvas.height/2);
-				ctx.font = 'bold 22px Comic Sans MS';
-				ctx.fillText(by, (canvas.width / 2), (canvas.height / 2) + font_size);
 			}
 		}
 	</script>
