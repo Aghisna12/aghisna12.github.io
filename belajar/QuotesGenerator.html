@@ -25,7 +25,7 @@
 				var images = ['img/flower.jpg','img/rose.jpg','img/month.jpg'];
 				background.src = images[Math.floor(Math.random() * images.length)];;
 				background.onload = function(){
-					ctx.drawImage(background, -4, -4, canvas.width, canvas.height);   
+					ctx.drawImage(background, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);   
 					ctx.font = font_size.toString() + 'px Comic Sans MS';
 					ctx.fillStyle = 'white';
 					ctx.textAlign = 'center';
