@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Jadwal Sholat</title>
+<style type="text/css">
+.center {
+	text-align: center;
+}
+.tx28 {
+	font-size: 28px;
+}
+.r30 {
+	margin-right: 30%;
+	float: right;
+}
+</style>
+</head>
+<body>
+	<div class="center">
+		<h1>Jadwal Sholat</h1>
+		<h2><span id="lokasi"></span> <span id="daerah"></span></h2>
+	</div>
+	<div class="center tx28">
+		<p>Tanggal : <span id="tanggal"></span></p>
+		<p>Imsak <span class="r30" id="imsak"></span></p>
+		<p>Subuh <span class="r30" id="subuh"></span></p>
+		<!--
+		<p>Terbit <span class="r30"></span></p>
+		<p>Dhuha <span class="r30" id="dhuha"></span></p>
+		-->
+		<p>Dzuhur <span class="r30" id="dzuhur"></span></p>
+		<p>Ashar <span class="r30" id="ashar"></span></p>
+		<p>Maghrib <span class="r30" id="maghrib"></span></p>
+		<p>Isya <span class="r30" id="isya"></span></p>
+	</div>
+</body>
+<script type="text/javascript">
+	var getJSON = function(url, callback) {
+
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('GET', url, true);
+	    xhr.responseType = 'json';
+	    
+	    xhr.onload = function() {
+	    
+	        var status = xhr.status;
+	        
+	        if (status == 200) {
+	            callback(null, xhr.response);
+	        } else {
+	            callback(status);
+	        }
+	    };
+	    
+	    xhr.send();
+	};
+
+	getJSON('https://api.myquran.com/v1/sholat/jadwal/1504/2021/04/11',  function(err, response) {
+	    if (err != null) {
+	        console.error(err);
+	    } else {
+	    	console.log(response);
+	    	if (response.status) {
+	    		document.getElementById("lokasi").innerHTML = response.data.lokasi;
+	    		document.getElementById("daerah").innerHTML = "(" + response.data.daerah + ")";
+	    		document.getElementById("tanggal").innerHTML = response.data.jadwal.tanggal;
+	    		document.getElementById("imsak").innerHTML = response.data.jadwal.imsak;
+	    		document.getElementById("subuh").innerHTML = response.data.jadwal.subuh;
+	    		//document.getElementById("dhuha").innerHTML = response.data.jadwal.dhuha;
+	    		document.getElementById("dzuhur").innerHTML = response.data.jadwal.dzuhur;
+	    		document.getElementById("ashar").innerHTML = response.data.jadwal.ashar;
+	    		document.getElementById("maghrib").innerHTML = response.data.jadwal.maghrib;
+	    		document.getElementById("isya").innerHTML = response.data.jadwal.isya;
+	    	}
+	    }
+	});
+</script>
+</html>
