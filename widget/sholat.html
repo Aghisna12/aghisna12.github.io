@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Jadwal Sholat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+body {
+	background: url('https://1.bp.blogspot.com/-1-uZh9Exf2s/XPKNvq0De-I/AAAAAAAAEkA/vYcPDFwpF7Q2lLKk7DMPDyvNjXowQDQ3gCLcBGAs/s640/background.jpg');
+	background-attachment: fixed;
+	background-size: 100% 100%;
+	font-weight: bold;
+}
+.center {
+	text-align: center;
+}
+.centerelement {
+  margin: auto;
+  width: 50%;
+}
+.tx22 {
+	font-size: 22px;
+}
+.r30 {
+	margin-right: 30%;
+	float: right;
+}
+.hide {
+	display: none;
+}
+
+.dropbtn {
+	background-color: #4CAF50;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+	background-color: #3e8e41;
+}
+
+#inputlokasi {
+	box-sizing: border-box;
+	background-image: url('https://www.w3schools.com/howto/searchicon.png');
+	background-position: 14px 12px;
+	background-repeat: no-repeat;
+	font-size: 16px;
+	padding: 14px 20px 12px 45px;
+	border: none;
+	border-bottom: 1px solid #ddd;
+}
+
+#inputlokasi:focus {outline: 3px solid #ddd;}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	margin: auto;
+	width: 260px;
+	background-color: #f6f6f6;
+	min-width: 230px;
+	overflow: auto;
+	border: 1px solid #ddd;
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: none;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+</style>
+</head>
+<body>
+	<div class="center">
+		<h1>Jadwal Sholat</h1>
+		<div id="carilokasi" class="dropdown-content hide">
+			<input type="text" placeholder="Cari Lokasi..." id="inputlokasi" onkeyup="filterFunction()">
+		</div>
+	</div>
+	<div class="center tx22 hide" id="jadwal">
+		<h4><span id="lokasi"></span> <span id="daerah"></span></h4>
+		<p><span id="tanggal"></span> <span id="jam"></span>:<span id="menit"></span>:<span id="detik"></span></p>
+		<p>Imsak <span class="r30" id="imsak"></span></p>
+		<p>Subuh <span class="r30" id="subuh"></span></p>
+		<p>Dzuhur <span class="r30" id="dzuhur"></span></p>
+		<p>Ashar <span class="r30" id="ashar"></span></p>
+		<p>Maghrib <span class="r30" id="maghrib"></span></p>
+		<p>Isya <span class="r30" id="isya"></span></p>
+		<h6>Sumber : Kementrian Agama RI</h6>
+	</div>
+</body>
+<script type="text/javascript">
+	function filterFunction() {
+		var inputlokasi, filter, ul, li, a, i;
+		inputlokasi = document.getElementById("inputlokasi");
+		filter = inputlokasi.value.toUpperCase();
+		div = document.getElementById("carilokasi");
+		a = div.getElementsByTagName("a");
+		for (i = 0; i < a.length; i++) {
+			txtValue = a[i].textContent || a[i].innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				a[i].style.display = "block";
+			} else {
+				a[i].style.display = "none";
+			}
+		}
+	}
+	var getJSON = function(url, callback) {
+
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('GET', url, true);
+	    xhr.responseType = 'json';
+	    
+	    xhr.onload = function() {
+	    
+	        var status = xhr.status;
+	        
+	        if (status == 200) {
+	            callback(null, xhr.response);
+	        } else {
+	            callback(status);
+	        }
+	    };
+	    
+	    xhr.send();
+	};
+
+	getJSON("https://api.myquran.com/v1/sholat/kota/semua", function(err, response) {
+		if (err != null) {
+			console.log(err);
+		} else {
+			var listlokasi = document.getElementById("carilokasi");
+			//console.log(response);
+			for (var i in response) {
+				var anode = document.createElement("a");
+				anode.href = "http://localhost/bot/jadwal.html?idlokasi=" + response[i]["id"];
+				var textnode = document.createTextNode(response[i]["lokasi"]);
+				anode.appendChild(textnode);
+				listlokasi.appendChild(anode);
+			}
+		}
+	});
+
+	var now = new Date();
+	var jam = now.getHours();
+	if (jam < 10) {
+		jam = "0" + jam;
+	}
+	var menit = now.getMinutes();
+	if (menit < 10) {
+		menit = "0" + menit;
+	}
+	var detik = now.getSeconds();
+	if (detik < 10) {
+		detik = "0" + detik;
+	}
+	var hari = now.getDate();
+	var bulan = now.getMonth() + 1;
+	var tahun = now.getFullYear();
+	var url = new URL(window.location.href);
+	var idlokasi = url.searchParams.get("idlokasi");
+	getJSON('https://api.myquran.com/v1/sholat/jadwal/' + idlokasi + '/' + tahun + '/' + bulan + '/' + hari,  function(err, response) {
+	    if (err != null) {
+	        console.error(err);
+	    } else {
+	    	//console.log(response);
+	    	if (response.status) {
+	    		document.getElementById("lokasi").innerHTML = response.data.lokasi;
+	    		document.getElementById("daerah").innerHTML = "(" + response.data.daerah + ")";
+	    		document.getElementById("tanggal").innerHTML = response.data.jadwal.tanggal;
+	    		document.getElementById("jam").innerHTML = jam;
+	    		document.getElementById("menit").innerHTML = menit;
+	    		document.getElementById("detik").innerHTML = detik;
+	    		document.getElementById("imsak").innerHTML = response.data.jadwal.imsak;
+	    		document.getElementById("subuh").innerHTML = response.data.jadwal.subuh;
+	    		//document.getElementById("dhuha").innerHTML = response.data.jadwal.dhuha;
+	    		document.getElementById("dzuhur").innerHTML = response.data.jadwal.dzuhur;
+	    		document.getElementById("ashar").innerHTML = response.data.jadwal.ashar;
+	    		document.getElementById("maghrib").innerHTML = response.data.jadwal.maghrib;
+	    		document.getElementById("isya").innerHTML = response.data.jadwal.isya;
+	    		document.getElementById("jadwal").style.display = "block";
+	    		document.getElementById("carilokasi").style.display = "none";
+	    	} else {
+	    		document.getElementById("carilokasi").style.display = "block";
+	    	}
+	    }
+	});
+	setInterval(function() {
+		var now = new Date();
+		var jam = now.getHours();
+		if (jam < 10) {
+			jam = "0" + jam;
+		}
+		var menit = now.getMinutes();
+		if (menit < 10) {
+			menit = "0" + menit;
+		}
+		var detik = now.getSeconds();
+		if (detik < 10) {
+			detik = "0" + detik;
+		}
+		document.getElementById("jam").innerHTML = jam;
+		document.getElementById("menit").innerHTML = menit;
+		document.getElementById("detik").innerHTML = detik;
+	}, 1000);
+</script>
+</html>
