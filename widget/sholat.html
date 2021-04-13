@@ -140,7 +140,7 @@ body {
 			//console.log(response);
 			for (var i in response) {
 				var anode = document.createElement("a");
-				anode.href = "http://localhost/bot/jadwal.html?idlokasi=" + response[i]["id"];
+				anode.href = "https://aghisna12.github.io/widget/sholat.html?idlokasi=" + response[i]["id"];
 				var textnode = document.createTextNode(response[i]["lokasi"]);
 				anode.appendChild(textnode);
 				listlokasi.appendChild(anode);
