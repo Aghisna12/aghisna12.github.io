@@ -80,7 +80,9 @@ body {
 	var hari = now.getDate();
 	var bulan = now.getMonth() + 1;
 	var tahun = now.getFullYear();
-	getJSON('https://api.myquran.com/v1/sholat/jadwal/1504/' + tahun + '/' + bulan + '/' + hari,  function(err, response) {
+	var url = new URL(window.location.href);
+	var idlokasi = url.searchParams.get("idlokasi");
+	getJSON('https://api.myquran.com/v1/sholat/jadwal/' + idlokasi + '/' + tahun + '/' + bulan + '/' + hari,  function(err, response) {
 	    if (err != null) {
 	        console.error(err);
 	    } else {
