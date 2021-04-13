@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Daftar Kab/Kota</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+body {
+	background: url('https://1.bp.blogspot.com/-1-uZh9Exf2s/XPKNvq0De-I/AAAAAAAAEkA/vYcPDFwpF7Q2lLKk7DMPDyvNjXowQDQ3gCLcBGAs/s640/background.jpg');
+	background-attachment: fixed;
+	background-size: 100% 100%;
+	text-align: center;
+}
+.matchWidth {
+	width: 100%;
+}
+</style>
+</head>
+<body>
+	<h2>Daftar Kabupaten/Kota</h2>
+	<table class="matchWidth" id="tabelkota">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nama</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</body>
+<script type="text/javascript">
+	var getJSON = function(url, callback) {
+
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('GET', url, true);
+	    xhr.responseType = 'json';
+	    
+	    xhr.onload = function() {
+	    
+	        var status = xhr.status;
+	        
+	        if (status == 200) {
+	            callback(null, xhr.response);
+	        } else {
+	            callback(status);
+	        }
+	    };
+	    
+	    xhr.send();
+	};
+	getJSON("https://api.myquran.com/v1/sholat/kota/semua", function(err, response) {
+		if (err != null) {
+			console.log(err);
+		} else {
+			var table = document.getElementById("tabelkota").getElementsByTagName("tbody")[0];
+			//console.log(response);
+			for (var i in response) {
+				var row = table.insertRow();
+				var cellkiri = row.insertCell();
+				var cellkanan = row.insertCell();
+				cellkiri.innerHTML = response[i]["id"];
+				cellkanan.innerHTML = response[i]["lokasi"];
+			}
+		}
+	});
+</script>
+</html>
