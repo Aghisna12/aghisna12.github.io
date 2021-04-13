@@ -3,6 +3,13 @@
 <head>
 <title>Jadwal Sholat</title>
 <style type="text/css">
+body {
+	background: url('https://1.bp.blogspot.com/-1-uZh9Exf2s/XPKNvq0De-I/AAAAAAAAEkA/vYcPDFwpF7Q2lLKk7DMPDyvNjXowQDQ3gCLcBGAs/s640/background.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
+	font-weight: bold;
+}
 .center {
 	text-align: center;
 }
@@ -21,7 +28,7 @@
 		<h2><span id="lokasi"></span> <span id="daerah"></span></h2>
 	</div>
 	<div class="center tx28">
-		<p id="tanggal"></p>
+		<p><span id="tanggal"></span> <span id="jam"></span>:<span id="menit"></span>:<span id="detik"></span></p>
 		<p>Imsak <span class="r30" id="imsak"></span></p>
 		<p>Subuh <span class="r30" id="subuh"></span></p>
 		<!--
@@ -32,6 +39,7 @@
 		<p>Ashar <span class="r30" id="ashar"></span></p>
 		<p>Maghrib <span class="r30" id="maghrib"></span></p>
 		<p>Isya <span class="r30" id="isya"></span></p>
+		<h6>Sumber : Kementrian Agama RI</h6>
 	</div>
 </body>
 <script type="text/javascript">
@@ -55,7 +63,23 @@
 	    xhr.send();
 	};
 
-	getJSON('https://api.myquran.com/v1/sholat/jadwal/1504/2021/04/11',  function(err, response) {
+	var now = new Date();
+	var jam = now.getHours();
+	if (jam < 10) {
+		jam = "0" + jam;
+	}
+	var menit = now.getMinutes();
+	if (menit < 10) {
+		menit = "0" + menit;
+	}
+	var detik = now.getSeconds();
+	if (detik < 10) {
+		detik = "0" + detik;
+	}
+	var hari = now.getDate();
+	var bulan = now.getMonth() + 1;
+	var tahun = now.getFullYear();
+	getJSON('https://api.myquran.com/v1/sholat/jadwal/1504/' + tahun + '/' + bulan + '/' + hari,  function(err, response) {
 	    if (err != null) {
 	        console.error(err);
 	    } else {
@@ -64,8 +88,12 @@
 	    		document.getElementById("lokasi").innerHTML = response.data.lokasi;
 	    		document.getElementById("daerah").innerHTML = "(" + response.data.daerah + ")";
 	    		document.getElementById("tanggal").innerHTML = response.data.jadwal.tanggal;
+	    		document.getElementById("jam").innerHTML = jam;
+	    		document.getElementById("menit").innerHTML = menit;
+	    		document.getElementById("detik").innerHTML = detik;
 	    		document.getElementById("imsak").innerHTML = response.data.jadwal.imsak;
 	    		document.getElementById("subuh").innerHTML = response.data.jadwal.subuh;
+	    		//document.getElementById("dhuha").innerHTML = response.data.jadwal.dhuha;
 	    		document.getElementById("dzuhur").innerHTML = response.data.jadwal.dzuhur;
 	    		document.getElementById("ashar").innerHTML = response.data.jadwal.ashar;
 	    		document.getElementById("maghrib").innerHTML = response.data.jadwal.maghrib;
@@ -73,5 +101,23 @@
 	    	}
 	    }
 	});
+	setInterval(function() {
+		var now = new Date();
+		var jam = now.getHours();
+		if (jam < 10) {
+			jam = "0" + jam;
+		}
+		var menit = now.getMinutes();
+		if (menit < 10) {
+			menit = "0" + menit;
+		}
+		var detik = now.getSeconds();
+		if (detik < 10) {
+			detik = "0" + detik;
+		}
+		document.getElementById("jam").innerHTML = jam;
+		document.getElementById("menit").innerHTML = menit;
+		document.getElementById("detik").innerHTML = detik;
+	}, 1000);
 </script>
 </html>
