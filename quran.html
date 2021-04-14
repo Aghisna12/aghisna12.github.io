@@ -126,36 +126,59 @@ body {
 	var nosurat = url.searchParams.get("nosurat");
 	var noayat = url.searchParams.get("noayat");
 	if (nosurat != null && noayat != null) {
+		var ayat = document.getElementById("ayat");
+		for (var x = 1; x <= noayat; x++) {
+			var pnode = document.createElement("p");
+			pnode.dir = "rtl";
+			pnode.lang = "ar";
+			pnode.style = "font-size: 24px;";
+			pnode.id = "ayat_ar_" + x;
+			ayat.appendChild(pnode);
+
+			var pnode1 = document.createElement("p");
+			pnode1.id = "ayat_idt_" + x;
+			ayat.appendChild(pnode1);
+
+			var pnode2 = document.createElement("p");
+			pnode2.id = "ayat_id_" + x;
+			ayat.appendChild(pnode2);
+
+			var hrnode = document.createElement("hr");
+			hrnode.style = "border: 1px dotted black;";
+			ayat.appendChild(hrnode);
+		}
 		getJSON("https://api.banghasan.com/quran/format/json/surat/" + nosurat + "/ayat/1-" + noayat,  function(err, response) {
 			if (err != null) {
 				console.error(err);
 			} else {
 				//console.log(response);
 				if (response["status"] == "ok") {
-					document.getElementById("surat").innerHTML = response["surat"]["asma"] + " | " + response["surat"]["nama"] + "(" + response["surat"]["arti"] + ")";
+					document.getElementById("surat").innerHTML = response["surat"]["asma"] + " | " + response["surat"]["nama"] + " (" + response["surat"]["arti"] + ")";
 					document.getElementById("ayat_type").innerHTML = response["surat"]["ayat"] + " ayat, " + response["surat"]["type"];
 					document.getElementById("keterangan").innerHTML = response["surat"]["keterangan"];
 					var ayat = document.getElementById("ayat");
 					for (var i in response["ayat"]["data"]["ar"]) {
-						var pnode = document.createElement("p");
-						pnode.dir = "rtl";
-						pnode.lang = "ar";
-						pnode.style = "font-size: 24px;";
-						pnode.innerHTML = response["ayat"]["data"]["ar"][i]["teks"];
-						ayat.appendChild(pnode);
-
-						var pnode1 = document.createElement("p");
-						var nomorayat = parseInt(i) + 1;
-						pnode1.innerHTML = "<span style='font-size:24px;'>" + nomorayat + ".</span> " + response["ayat"]["data"]["idt"][i]["teks"];
-						ayat.appendChild(pnode1);
-
-						var pnode2 = document.createElement("p");
-						pnode2.innerHTML = response["ayat"]["data"]["id"][i]["teks"];
-						ayat.appendChild(pnode2);
-
-						var hrnode = document.createElement("hr");
-						hrnode.style = "border: 1px dotted black;";
-						ayat.appendChild(hrnode);
+						var nomorayat = response["ayat"]["data"]["idt"][i]["ayat"];
+						document.getElementById("ayat_ar_" + nomorayat).innerHTML = response["ayat"]["data"]["ar"][i]["teks"];
+						document.getElementById("ayat_idt_" + nomorayat).innerHTML = "<span style='font-size:24px;'>" + response["ayat"]["data"]["idt"][i]["ayat"] + ".</span> " + response["ayat"]["data"]["idt"][i]["teks"];
+						document.getElementById("ayat_id_" + nomorayat).innerHTML = response["ayat"]["data"]["id"][i]["teks"];
+					}
+					if (noayat > 10) {
+						for (var j = 10; j < noayat; j = j + 10) {
+							getJSON("https://api.banghasan.com/quran/format/json/surat/" + nosurat + "/ayat/" + (j + 1) + "-" + (j + 10),  function(err, response) {
+								if (err != null) {
+									console.error(err);
+								} else {
+									for (var k in response["ayat"]["data"]["ar"]) {
+										var nomorayat = response["ayat"]["data"]["idt"][k]["ayat"];
+										document.getElementById("ayat_ar_" + nomorayat).innerHTML = response["ayat"]["data"]["ar"][k]["teks"];
+										document.getElementById("ayat_idt_" + nomorayat).innerHTML = "<span style='font-size:24px;'>" + response["ayat"]["data"]["idt"][k]["ayat"] + ".</span> " + response["ayat"]["data"]["idt"][k]["teks"];
+										var pnode2 = document.getElementById("ayat_id_" + nomorayat).innerHTML = response["ayat"]["data"]["id"][k]["teks"];
+									}
+								}
+							});
+							//console.log(j + ":" + (j + 10));
+						}
 					}
 					document.getElementById("tampilsurat").style.display = "block";
 				}
@@ -172,7 +195,7 @@ body {
 				for (var i in response["hasil"]) {
 					var anode = document.createElement("a");
 					anode.href = "https://aghisna12.github.io/quran.html?nosurat=" + response["hasil"][i]["nomor"] + "&noayat=" + response["hasil"][i]["ayat"];
-					var textnode = document.createTextNode(response["hasil"][i]["nama"]);
+					var textnode = document.createTextNode(response["hasil"][i]["nomor"] + ". " + response["hasil"][i]["nama"] + " (" + response["hasil"][i]["ayat"] + ")");
 					anode.appendChild(textnode);
 					listsurat.appendChild(anode);
 				}
