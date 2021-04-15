@@ -277,9 +277,9 @@ body {
 				if (response["status"] == true) {
 					if (response["data"].length == 2) {
 						hasil = "QS " + response["data"][0]["aya_name"];
-						hasil += "<h2>" + response["data"][0]["mufasir"] + "</h2>";
+						hasil += "<h4>" + response["data"][0]["mufasir"] + "</h4>";
 						hasil += response["data"][0]["html"];
-						hasil += "<h2>" + response["data"][1]["mufasir"] + "</h2>";
+						hasil += "<h4>" + response["data"][1]["mufasir"] + "</h4>";
 						hasil += response["data"][1]["text"];
 					}
 				}
