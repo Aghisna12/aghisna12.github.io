@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tafsir Al Quran</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<style type="text/css">
+body {
+	margin: 20px;
+}
+
+.center {
+	text-align: center;
+}
+
+.teksayat {
+	font-size: 28px;
+}
+
+.hide {
+	display: none;
+}
+
+.dropbtn {
+	background-color: #4CAF50;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+	background-color: #3e8e41;
+}
+
+#inputsurat {
+	box-sizing: border-box;
+	background-image: url('https://www.w3schools.com/howto/searchicon.png');
+	background-position: 14px 12px;
+	background-repeat: no-repeat;
+	font-size: 16px;
+	padding: 14px 20px 12px 45px;
+	border: none;
+	border-bottom: 1px solid #ddd;
+}
+
+#inputsurat:focus {outline: 3px solid #ddd;}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	margin: auto;
+	width: 260px;
+	background-color: #f6f6f6;
+	min-width: 230px;
+	overflow: auto;
+	border: 1px solid #ddd;
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: none;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+	<div id="myModal" class="modal">
+		<div class="modal-content">
+			<span class="close" id="close" onclick="closeModal()">&times;</span>
+			<div id="isimodal"></div>
+		</div>
+	</div>
+	<div id="pencarian" class="center" style="display: none;">
+		<h1>Tafsir Quran</h1>
+		<div id="carisurat" class="dropdown-content">
+			<input type="text" placeholder="Cari Surat..." id="inputsurat" onkeyup="filterFunction()">
+		</div>
+	</div>
+	<div id="tampilsurat" style="display: none;">
+		<div class="center">
+			<h1 id="surat"></h1>
+			<h2 id="ayat_type"></h2>
+			<hr style="border: 2px dashed black;">
+		</div>
+		<div id="ayat">
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var getJSON = function(url, callback) {
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', url, true);
+		xhr.responseType = 'json';
+		xhr.onload = function() {
+			var status = xhr.status;
+			if (status == 200) {
+				callback(null, xhr.response);
+			} else {
+				callback(status);
+			}
+		};
+		xhr.send();
+	};
+
+	var map = ["&\#1632;","&\#1633;","&\#1634;","&\#1635;","&\#1636;","&\#1637;","&\#1638;","&\#1639;","&\#1640;","&\#1641;"];
+
+	function getArabicNumbers(str) {
+		var newStr = "";
+		str = String(str);
+		for(i=0; i<str.length; i++) {
+			newStr += map[parseInt(str.charAt(i))];
+		}
+		return newStr;
+	}
+
+	function filterFunction() {
+		var inputlokasi, filter, ul, li, a, i;
+		inputlokasi = document.getElementById("inputsurat");
+		filter = inputlokasi.value.toUpperCase();
+		div = document.getElementById("carisurat");
+		a = div.getElementsByTagName("a");
+		for (i = 0; i < a.length; i++) {
+			txtValue = a[i].textContent || a[i].innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				a[i].style.display = "block";
+			} else {
+				a[i].style.display = "none";
+			}
+		}
+	}
+
+	var url = new URL(window.location.href);
+	var nosurat = url.searchParams.get("nosurat");
+	var noayat = url.searchParams.get("noayat");
+	if (nosurat != null && noayat != null) {
+		var ayat = document.getElementById("ayat");
+		for (var x = 1; x <= noayat; x++) {
+			var pnode = document.createElement("p");
+			pnode.dir = "rtl";
+			pnode.lang = "ar";
+			pnode.style = "font-size: 24px;";
+			pnode.id = "ayat_ar_" + x;
+			ayat.appendChild(pnode);
+
+			var inode = document.createElement("input");
+			inode.type = "button";
+			inode.id = "ayat_index_" + x;
+			inode.value = "Tafsir " + nosurat + ":" + x;
+			inode.addEventListener("click", function () {
+				document.getElementById("myModal").style.display = "block";
+				setModal(this.id);
+			}, false);
+			ayat.appendChild(inode);
+
+			var hrnode = document.createElement("hr");
+			hrnode.style = "border: 1px dotted black;";
+			ayat.appendChild(hrnode);
+		}
+		getJSON("https://api.banghasan.com/quran/format/json/surat/" + nosurat + "/ayat/1-" + noayat,  function(err, response) {
+			if (err != null) {
+				console.error(err);
+			} else {
+				//console.log(response);
+				if (response["status"] == "ok") {
+					document.getElementById("surat").innerHTML = response["surat"]["asma"] + " | " + response["surat"]["nama"] + " (" + response["surat"]["arti"] + ")";
+					document.getElementById("ayat_type").innerHTML = response["surat"]["ayat"] + " ayat, " + response["surat"]["type"];
+					var ayat = document.getElementById("ayat");
+					var start = response["surat"]["start"];
+					for (var i in response["ayat"]["data"]["ar"]) {
+						var nomorayat = response["ayat"]["data"]["idt"][i]["ayat"];
+						document.getElementById("ayat_ar_" + nomorayat).innerHTML = response["ayat"]["data"]["ar"][i]["teks"] + " - " + getArabicNumbers(nomorayat);
+						var indextafsir = document.getElementById("ayat_index_" + nomorayat);
+						if (indextafsir != null) {
+							indextafsir.value = indextafsir.value + " [" + (parseInt(start) + parseInt(nomorayat)) + "]";
+						}
+					}
+					if (noayat > 10) {
+						for (var j = 10; j < noayat; j = j + 10) {
+							getJSON("https://api.banghasan.com/quran/format/json/surat/" + nosurat + "/ayat/" + (j + 1) + "-" + (j + 10),  function(err, response) {
+								if (err != null) {
+									console.error(err);
+								} else {
+									for (var k in response["ayat"]["data"]["ar"]) {
+										var nomorayat = response["ayat"]["data"]["idt"][k]["ayat"];
+										var ayat_lanjut = document.getElementById("ayat_ar_" + nomorayat);
+										if (ayat_lanjut != null) {
+											ayat_lanjut.innerHTML = response["ayat"]["data"]["ar"][k]["teks"] + " - " + getArabicNumbers(nomorayat);
+										}
+										var indextafsir = document.getElementById("ayat_index_" + nomorayat);
+										if (indextafsir != null) {
+											indextafsir.value = indextafsir.value + " [" + (parseInt(start) + parseInt(nomorayat)) + "]";
+										}
+									}
+								}
+							});
+							//console.log(j + ":" + (j + 10));
+						}
+					}
+					document.getElementById("tampilsurat").style.display = "block";
+				}
+			}
+		});
+	} else {
+		document.getElementById("pencarian").style.display = "block";
+		getJSON("https://api.banghasan.com/quran/format/json/surat", function(err, response) {
+			if (err != null) {
+				console.log(err);
+			} else {
+				var listsurat = document.getElementById("carisurat");
+				//console.log(response);
+				for (var i in response["hasil"]) {
+					var anode = document.createElement("a");
+					anode.href = "https://aghisna12.github.io/tafsir.html?nosurat=" + response["hasil"][i]["nomor"] + "&noayat=" + response["hasil"][i]["ayat"];
+					var textnode = document.createTextNode(response["hasil"][i]["nomor"] + ". " + response["hasil"][i]["nama"] + " (" + response["hasil"][i]["ayat"] + ")");
+					anode.appendChild(textnode);
+					listsurat.appendChild(anode);
+				}
+			}
+		});
+	}
+
+	function setModal(ids) {
+		var indexvalue = document.getElementById(ids).value;
+		var id = indexvalue.substring(indexvalue.lastIndexOf("[") + 1, indexvalue.lastIndexOf("]"));
+		getJSON("https://api.myquran.com/v1/tafsir/quran/kemenag/id/" + id, function(err, response) {
+			if (err != null) {
+				console.log(err);
+			} else {
+				//console.log(response);
+				var hasil = "error";
+				if (response["status"] == true) {
+					if (response["data"].length == 2) {
+						hasil = "QS " + response["data"][0]["aya_name"];
+						hasil += "<h2>" + response["data"][0]["mufasir"] + "</h2>";
+						hasil += response["data"][0]["html"];
+						hasil += "<h2>" + response["data"][1]["mufasir"] + "</h2>";
+						hasil += response["data"][1]["text"];
+					}
+				}
+				document.getElementById("isimodal").innerHTML = hasil;
+			}
+		});
+	}
+
+	function closeModal() {
+		document.getElementById("myModal").style.display = "none";
+		document.getElementById("isimodal").innerHTML = "";
+	}
+
+	window.onclick = function(event) {
+		var modal = document.getElementById("myModal");
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+</script>
+</html>
