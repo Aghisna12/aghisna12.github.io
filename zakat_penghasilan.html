@@ -1,9 +1,3 @@
-<!--
-Author : Aghisna12
-Date   : 18/04/2021
-Update : -
--->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,6 +46,9 @@ body {
 		<p id="rincian"></p>
 		<strong id="jumlah"></strong>
 	</div>
+	<div id="error" style="display: none;">
+		<p style="color: red;">Pendapatan tidak boleh kosong!</p>
+	</div>
 </body>
 <script type="text/javascript">
 	function formatRupiah(angka, prefix){
@@ -73,11 +70,20 @@ body {
 
 	function hitungpenghasilan() {
 		var pendapatan = document.getElementById("pendapatan_bulanan").value;
+		if (pendapatan == "") {
+			document.getElementById("error").style.display = "block";
+			return;
+		}
 		var lainnya = document.getElementById("pendapatan_lainnya").value;
+		if (lainnya == "") {
+			lainnya = "0";
+		}
+		console.log(lainnya);
 		var total = Math.ceil((parseInt(pendapatan) + parseInt(lainnya)) * (0.025));
 		document.getElementById("rincian").innerHTML = "2.5% x (" + formatRupiah(pendapatan, "Rp. ") + " + " + formatRupiah(lainnya, "Rp. ") + ") = ";
 		document.getElementById("jumlah").innerHTML = formatRupiah(total.toString(), "Rp. ");
 		document.getElementById("hasil").style.display = "block";
+		document.getElementById("error").style.display = "none";
 	}
 </script>
 </html>
