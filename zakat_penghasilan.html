@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zakat Penghasilan</title>
+</head>
+<style type="text/css">
+body {
+	margin: 20px;
+}
+.m1 {
+	margin: 10px;
+}
+</style>
+<body>
+	<div>
+		<h1 align="center">Kalkulator Zakat</h1>
+		<h4>Perhitungan Zakat Penghasilan</h4>
+	</div>
+	<div class="m1">
+		<label for="pendapatan_bulanan">Pendapatan Bulanan</label>
+		<div>
+			<span>Rp. </span><input type="number" name="pendapatan_bulanan" id="pendapatan_bulanan">
+		</div>
+	</div>
+	<div class="m1">
+		<label for="pendapatan_lainnya">Bonus, THR, dan lainnya</label>
+		<div>
+			<span>Rp. </span><input type="number" name="pendapatan_lainnya" id="pendapatan_lainnya">
+		</div>
+	</div>
+	<!--
+	<div class="m1">
+		<label for="harga_beras">Harga Beras Saat Ini</label>
+		<div>
+			<span>Rp. </span><input type="number" name="harga_beras"><span> / Kg</span>
+		</div>
+	</div>
+	-->
+	<div class="m1">
+		<button onclick="hitungpenghasilan();">Hitung</button>
+	</div>
+	<div class="m1" style="display: none;" id="hasil">
+		<h4>Jumlah Zakat Penghasilan :</h4>
+		<p id="rincian"></p>
+		<strong id="jumlah"></strong>
+	</div>
+</body>
+<script type="text/javascript">
+	function formatRupiah(angka, prefix){
+		var number_string = angka.replace(/[^,\d]/g, '').toString(),
+		split   		= number_string.split(','),
+		sisa     		= split[0].length % 3,
+		rupiah     		= split[0].substr(0, sisa),
+		ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+		// tambahkan titik jika yang di input sudah menjadi angka ribuan
+		if(ribuan){
+			separator = sisa ? '.' : '';
+			rupiah += separator + ribuan.join('.');
+		}
+
+		rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+		return prefix == undefined ? rupiah : (rupiah ? prefix + rupiah : '');
+	}
+
+	function hitungpenghasilan() {
+		var pendapatan = document.getElementById("pendapatan_bulanan").value;
+		var lainnya = document.getElementById("pendapatan_lainnya").value;
+		var total = Math.ceil((parseInt(pendapatan) + parseInt(lainnya)) * (0.025));
+		document.getElementById("rincian").innerHTML = "2.5% x (" + formatRupiah(pendapatan, "Rp. ") + " + " + formatRupiah(lainnya, "Rp. ") + ") = ";
+		document.getElementById("jumlah").innerHTML = formatRupiah(total.toString(), "Rp. ");
+		document.getElementById("hasil").style.display = "block";
+	}
+</script>
+</html>
