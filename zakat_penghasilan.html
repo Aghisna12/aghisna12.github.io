@@ -70,14 +70,18 @@ body {
 
 	function hitungpenghasilan() {
 		var pendapatan = document.getElementById("pendapatan_bulanan").value;
-		if (pendapatan == "") {
+		var lainnya = document.getElementById("pendapatan_lainnya").value;
+		if (pendapatan == "" && lainnya == "") {
 			document.getElementById("error").style.display = "block";
 			return;
 		}
-		var lainnya = document.getElementById("pendapatan_lainnya").value;
+		if (pendapatan == "") {
+			pendapatan = "0";
+		}
 		if (lainnya == "") {
 			lainnya = "0";
 		}
+
 		console.log(lainnya);
 		var total = Math.ceil((parseInt(pendapatan) + parseInt(lainnya)) * (0.025));
 		document.getElementById("rincian").innerHTML = "2.5% x (" + formatRupiah(pendapatan, "Rp. ") + " + " + formatRupiah(lainnya, "Rp. ") + ") = ";
