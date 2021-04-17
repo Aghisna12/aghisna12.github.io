@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Random Catatan Depag</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<style type="text/css">
+body {
+	margin: 20px;
+}
+</style>
+</head>
+<body>
+	<div id="catatan">
+	</div>
+	<div id="footer" style="display: none;">
+		<hr>
+		<small>Sumber: Departemen Agama RI</small>
+	</div>
+</body>
+<script type="text/javascript">
+	var getJSON = function(url, callback) {
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', url, true);
+		xhr.responseType = 'json';
+		xhr.onload = function() {
+			var status = xhr.status;
+			if (status == 200) {
+				callback(null, xhr.response);
+			} else {
+				callback(status);
+			}
+		};
+		xhr.send();
+	};
+	var random = Math.floor(Math.random() * 1610) + 1;
+	getJSON("https://api.banghasan.com/quran/format/json/catatan/" + random, function(err, response) {
+		if (err != null) {
+			console.log(err);
+		} else {
+			var catatan = document.getElementById("catatan");
+			//console.log(response);
+			if (response["status"] == "ok") {
+				var h4node = document.createElement("h4");
+				h4node.innerText = "QS " + response["quran"]["surat"] + ":" + response["quran"]["ayat"];
+				catatan.appendChild(h4node);
+
+				var pnode = document.createElement("p");
+				pnode.innerText = response["quran"]["teks"];
+				catatan.appendChild(pnode);
+
+				var hrnode = document.createElement("hr");
+				hrnode.style = "border: 1px solid black;";
+				//catatan.appendChild(hrnode);
+
+				var h4node = document.createElement("h4");
+				h4node.innerText = "Catatan Depag RI nomor : " + response["catatan"]["nomor"];
+				catatan.appendChild(h4node);
+
+				var pnode = document.createElement("p");
+				pnode.innerText = response["catatan"]["teks"];
+				catatan.appendChild(pnode);
+				document.getElementById("footer").style.display = "block";
+			}
+		}
+	});
+</script>
+</html>
