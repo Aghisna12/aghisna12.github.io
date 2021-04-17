@@ -49,10 +49,6 @@ body {
 				pnode.innerText = response["quran"]["teks"];
 				catatan.appendChild(pnode);
 
-				var hrnode = document.createElement("hr");
-				hrnode.style = "border: 1px solid black;";
-				//catatan.appendChild(hrnode);
-
 				var h4node = document.createElement("h4");
 				h4node.innerText = "Catatan Depag RI nomor : " + response["catatan"]["nomor"];
 				catatan.appendChild(h4node);
