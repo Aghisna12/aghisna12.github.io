@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zakat Fitrah</title>
+</head>
+<style type="text/css">
+body {
+	margin: 20px;
+}
+.m1 {
+	margin: 10px;
+}
+</style>
+<body>
+	<div>
+		<h1 align="center">Kalkulator Zakat</h1>
+		<h4>Perhitungan Zakat Fitrah</h4>
+	</div>
+	<div class="m1">
+		<label for="anggota_keluarga">Jumlah anggota keluarga</label>
+		<div>
+			<input type="number" name="anggota_keluarga" id="anggota_keluarga">
+		</div>
+	</div>
+	<!--
+	<div class="m1">
+		<label for="harga_beras">Harga beras saat ini</label>
+		<div>
+			<span>Rp. </span><input type="number" name="harga_beras" id="harga_beras" value="10500"><span> / Kg</span>
+		</div>
+	</div>
+	-->
+	<div class="m1">
+		<button onclick="hitung();">Hitung</button>
+	</div>
+	<div class="m1" style="display: none;" id="hasil">
+		<h4>Jumlah Zakat Fitrah :</h4>
+		<p id="rincian"></p>
+	</div>
+	<div id="error" style="display: none;">
+		<p style="color: red;">Data tidak boleh kosong!</p>
+	</div>
+</body>
+<script type="text/javascript">
+	function formatRupiah(angka, prefix){
+		var number_string = angka.replace(/[^,\d]/g, '').toString(),
+		split   		= number_string.split(','),
+		sisa     		= split[0].length % 3,
+		rupiah     		= split[0].substr(0, sisa),
+		ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+		// tambahkan titik jika yang di input sudah menjadi angka ribuan
+		if(ribuan){
+			separator = sisa ? '.' : '';
+			rupiah += separator + ribuan.join('.');
+		}
+
+		rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+		return prefix == undefined ? rupiah : (rupiah ? prefix + rupiah : '');
+	}
+
+	function hitung() {
+		var anggota = document.getElementById("anggota_keluarga").value;
+		//var beras = document.getElementById("harga_beras").value;
+		if (anggota == "") {
+			document.getElementById("error").style.display = "block";
+			return;
+		}
+		if (anggota == "") {
+			anggota = "0";
+		}
+
+		var total = anggota * 40000;
+		document.getElementById("rincian").innerHTML = anggota + " orang x Rp. 40.000" + " = <strong>" + formatRupiah(total.toString(), "Rp. ") + "</strong><br/><i>atau</i><br/>" + anggota + " orang x 2,5Kg = <strong>" + (anggota * 2.5) +"Kg / " + (anggota * 3.5) + "Liter</strong> Beras";
+		//document.getElementById("jumlah").innerHTML = formatRupiah(total.toString(), "Rp. ") + " <i>atau</i> " + (anggota * 2.5).toFixed(2) +"Kg Beras";
+		document.getElementById("hasil").style.display = "block";
+		document.getElementById("error").style.display = "none";
+	}
+</script>
+</html>
