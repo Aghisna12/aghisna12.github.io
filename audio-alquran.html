@@ -153,7 +153,7 @@ getJSON("https://al-quran-8d642.firebaseio.com/data.json", function(err, respons
 				card.setAttribute("id", x["audio"]);
 				card.setAttribute("class", "card");
 				card.addEventListener("click", function () {
-					location.href = "#";
+					location.href = "#" + x["nomor"];
 					showSurat(this);
 				});
 				var h4 = document.createElement("h4");
