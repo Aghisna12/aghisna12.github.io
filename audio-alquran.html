@@ -114,7 +114,7 @@ function showSurat(data) {
 	audio.play();
 	document.getElementById("depan").style.display = "none";
 	document.getElementById("surat").style.display = "block";
-	var interval = setInterval(() => {
+	var interval = setInterval(function() {
 	    if ((audio.volume + 0.01) > 0.8) {
 	         clearInterval(interval);
 	    } else {
@@ -162,7 +162,7 @@ window.addEventListener('hashchange', function(){
 		document.getElementById("depan").style.display = "block";
 		document.getElementById("surat").style.display = "none";
     	var audio = document.getElementById("audio");
-		var interval = setInterval(() => {
+		var interval = setInterval(function () {
 		    if ((audio.volume - 0.01) < 0) {
 		         audio.pause();
 		         clearInterval(interval);
