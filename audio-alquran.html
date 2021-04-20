@@ -17,7 +17,7 @@ body {
 .column {
 	float: left;
 	width: 25%;
-	padding: 10px;
+	padding: 8px;
 }
 
 /* Remove extra left and right margins, due to padding */
@@ -88,6 +88,18 @@ body {
 
 </body>
 <script type="text/javascript">
+
+function isSafari() {
+	var ua = navigator.userAgent.toLowerCase(); 
+	if (ua.indexOf('safari') != -1) { 
+		if (ua.indexOf('chrome') > -1) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+}
+
 var getJSON = function(url, callback) {
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url, true);
@@ -109,18 +121,23 @@ function showSurat(data) {
 	document.getElementById("ayat_type").innerHTML = data.childNodes[2].innerHTML;
 	document.getElementById("audio_src").src = data.id;
 	document.getElementById("audio");
-	audio.volume = 0.0;
+	var safari = isSafari();
+	if (!safari) {
+		audio.volume = 0.0;
+		var interval = setInterval(() => {
+		    if ((audio.volume + 0.01) > 0.8) {
+		         clearInterval(interval);
+		    } else {
+		    	audio.volume += 0.01;
+			}
+		}, 100);
+	} else {
+		audio.volume = 0.8;
+	}
 	audio.load();
 	audio.play();
 	document.getElementById("depan").style.display = "none";
 	document.getElementById("surat").style.display = "block";
-	var interval = setInterval(function() {
-	    if ((audio.volume + 0.01) > 0.8) {
-	         clearInterval(interval);
-	    } else {
-	    	audio.volume += 0.01;
-		}
-	}, 100);
 }
 
 getJSON("https://al-quran-8d642.firebaseio.com/data.json", function(err, response) {
@@ -162,14 +179,18 @@ window.addEventListener('hashchange', function(){
 		document.getElementById("depan").style.display = "block";
 		document.getElementById("surat").style.display = "none";
     	var audio = document.getElementById("audio");
-		var interval = setInterval(function () {
-		    if ((audio.volume - 0.01) < 0) {
-		         audio.pause();
-		         clearInterval(interval);
-		    } else {
-		    	audio.volume -= 0.01;
-			}
-		}, 10);
+    	if (!isSafari()) {
+			var interval = setInterval(() => {
+			    if ((audio.volume - 0.01) < 0) {
+			         audio.pause();
+			         clearInterval(interval);
+			    } else {
+			    	audio.volume -= 0.01;
+				}
+			}, 10);
+		} else {
+			audio.pause();
+		}
     }
 });
 </script>
