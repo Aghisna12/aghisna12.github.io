@@ -125,10 +125,10 @@ function showSurat(data) {
 	if (!safari) {
 		audio.volume = 0.0;
 		var interval = setInterval(() => {
-		    if ((audio.volume + 0.01) > 0.8) {
-		         clearInterval(interval);
-		    } else {
-		    	audio.volume += 0.01;
+			if ((audio.volume + 0.01) > 0.8) {
+				clearInterval(interval);
+			} else {
+				audio.volume += 0.01;
 			}
 		}, 100);
 	} else {
@@ -175,23 +175,23 @@ getJSON("https://al-quran-8d642.firebaseio.com/data.json", function(err, respons
 });
 
 window.addEventListener('hashchange', function(){
-    if (!window.location.href.includes("#")) {
+	if (!window.location.href.includes("#")) {
 		document.getElementById("depan").style.display = "block";
 		document.getElementById("surat").style.display = "none";
-    	var audio = document.getElementById("audio");
-    	if (!isSafari()) {
+		var audio = document.getElementById("audio");
+		if (!isSafari()) {
 			var interval = setInterval(() => {
-			    if ((audio.volume - 0.01) < 0) {
-			         audio.pause();
-			         clearInterval(interval);
-			    } else {
-			    	audio.volume -= 0.01;
+				if ((audio.volume - 0.01) < 0) {
+					audio.pause();
+					clearInterval(interval);
+				} else {
+					audio.volume -= 0.01;
 				}
 			}, 10);
 		} else {
 			audio.pause();
 		}
-    }
+	}
 });
 </script>
 </html>
