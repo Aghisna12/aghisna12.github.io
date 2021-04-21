@@ -139,8 +139,9 @@ function showSurat(data) {
 	document.getElementById("depan").style.display = "none";
 	document.getElementById("surat").style.display = "block";
 }
-
-getJSON("https://al-quran-8d642.firebaseio.com/data.json", function(err, response) {
+	
+//https://al-quran-8d642.firebaseio.com/data.json
+getJSON("https://api.npoint.io/99c279bb173a6e28359c/data", function(err, response) {
 	if (err != null) {
 		console.log(err);
 	} else {
