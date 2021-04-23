@@ -119,6 +119,7 @@ function showSurat(data) {
 	document.getElementById("nama").innerHTML = data.childNodes[0].id;
 	document.getElementById("arti").innerHTML = data.childNodes[1].id;
 	document.getElementById("ayat_type").innerHTML = data.childNodes[2].innerHTML;
+	//UPDATE
 	document.getElementById("audio_src").src = "https://server8.mp3quran.net/afs/" + data.id;
 	document.getElementById("audio");
 	var safari = isSafari();
