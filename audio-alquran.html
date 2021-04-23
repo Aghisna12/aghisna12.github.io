@@ -154,8 +154,9 @@ getJSON("https://api.npoint.io/99c279bb173a6e28359c/data", function(err, respons
 				var card = document.createElement("div");
 				card.setAttribute("id", x["audio"]);
 				card.setAttribute("class", "card");
+				card.setAttribute("title", x["nomor"]);
 				card.addEventListener("click", function () {
-					location.href = "#" + x["nomor"];
+					location.href = "#" + this.title;
 					showSurat(this);
 				});
 				var h4 = document.createElement("h4");
