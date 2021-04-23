@@ -119,7 +119,7 @@ function showSurat(data) {
 	document.getElementById("nama").innerHTML = data.childNodes[0].id;
 	document.getElementById("arti").innerHTML = data.childNodes[1].id;
 	document.getElementById("ayat_type").innerHTML = data.childNodes[2].innerHTML;
-	document.getElementById("audio_src").src = data.id;
+	document.getElementById("audio_src").src = "https://server8.mp3quran.net/afs/" + data.id;
 	document.getElementById("audio");
 	var safari = isSafari();
 	if (!safari) {
@@ -150,7 +150,8 @@ getJSON("https://raw.githubusercontent.com/penggguna/QuranJSON/master/quran.json
 				var column = document.createElement("div");
 				column.setAttribute("class", "column");
 				var card = document.createElement("div");
-				card.setAttribute("id", x["recitation"]);
+				var str = x["recitation"];
+				card.setAttribute("id", str.substring(str.length, str.length - 7));
 				card.setAttribute("class", "card");
 				card.addEventListener("click", function () {
 					location.href = "#" + x["number_of_surah"];
