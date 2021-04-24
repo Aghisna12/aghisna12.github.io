@@ -5,25 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Random Quotes</title>
 <style type="text/css">
+html, body {
+    height: 80%;
+}
+
 .center {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-moz-transform: translateX(-50%) translateY(-50%);
-	-webkit-transform: translateX(-50%) translateY(-50%);
-	transform: translateX(-50%) translateY(-50%);
+    position: relative;
+    text-align: center;
+    top: 50%;
 }
-.ukur {
-	font-size: 32px; /*fallback for old browsers */
-	font-size: calc(3.2*100vw/80);/* 1.4 is a fudge factor by inspection. */
-}
+
 </style>
 </head>
 <body>
-<div id="utama" class="center" align="center" style="display: none;">
-	<h1>❝</h1>
-	<p id="quotes" class="ukur"></p>
-	<h1>❞</h1>
+<div id="utama" class="center" style="display: none;">
+	<h2>❛❛</h2>
+	<h2 id="quotes"></h2>
+	<h2>❜❜</h2>
 	<h3>- <span id="oleh"></span> -</h3>
 </div>
 </body>
