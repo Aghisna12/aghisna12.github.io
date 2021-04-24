@@ -13,12 +13,16 @@
 	-webkit-transform: translateX(-50%) translateY(-50%);
 	transform: translateX(-50%) translateY(-50%);
 }
+.ukur {
+	font-size: 32px; /*fallback for old browsers */
+	font-size: calc(3.2*100vw/80);/* 1.4 is a fudge factor by inspection. */
+}
 </style>
 </head>
 <body>
 <div id="utama" class="center" align="center" style="display: none;">
 	<h1>❝</h1>
-	<h2 id="quotes"></h2>
+	<p id="quotes" class="ukur"></p>
 	<h1>❞</h1>
 	<h3>- <span id="oleh"></span> -</h3>
 </div>
