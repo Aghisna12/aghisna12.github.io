@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doa sehari hari</title>
+<style type="text/css">
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.size22 {
+	font-size: 28px;
+}
+
+.m20 {
+	margin: 20px;
+}
+
+/* Float four columns side by side */
+.column {
+	float: left;
+	width: 25%;
+	padding: 8px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {
+	margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+	.column {
+		width: 100%;
+		display: block;
+		margin-bottom: 20px;
+	}
+}
+
+/* Style the counter cards */
+.card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	padding: 16px;
+	background-color: #f1f1f1;
+	min-height: 120px;
+}
+
+.card > h3 {
+	text-align: center;
+}
+
+.card > h6 {
+	direction: rtl;
+
+}
+
+.center {
+	text-align: center;
+}
+
+.hide {
+	display: none;
+}
+</style>
+</head>
+<body>
+<div id="depan">
+	<div class="center" id="judul">
+		<h1>Doa Sehari-Hari</h1>
+		<b>terjemahan B.Indonesia</b>
+	</div>
+	<div class="row" id="list">
+	</div>
+</div>
+
+<div class="hide" id="surat">
+	<h1 id="nama" align="center"></h1>
+	<div class="size22 m20">
+		<p id="arab" dir="rtl" lang="ar"></p>
+		<b><p id="latin"></p></b>
+		<p id="arti"></p>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript">
+
+var getJSON = function(url, callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', url, true);
+	xhr.responseType = 'json';
+	xhr.onload = function() {
+		var status = xhr.status;
+		if (status == 200) {
+			callback(null, xhr.response);
+		} else {
+			callback(status);
+		}
+	};
+	xhr.send();
+};
+
+var database = [];
+
+function showDoa(data) {
+	var index = parseInt(data.id) - 1;
+	document.getElementById("nama").innerHTML = database[index]["title"];
+	document.getElementById("arab").innerHTML = database[index]["arabic"];
+	document.getElementById("latin").innerHTML = database[index]["latin"];
+	document.getElementById("arti").innerHTML = database[index]["translation"];
+	document.getElementById("depan").style.display = "none";
+	document.getElementById("surat").style.display = "block";
+}
+
+getJSON("https://raw.githubusercontent.com/AzharRivaldi/Doa-Sehari-hari/main/app/src/main/assets/doaseharihari.json", function(err, response) {
+	if (err != null) {
+		console.log(err);
+	} else {
+		if (response["data"]) {
+			database = response["data"];
+			var list = document.getElementById("list");
+			for (var x of response["data"]) {
+				var column = document.createElement("div");
+				column.setAttribute("class", "column");
+				var card = document.createElement("div");
+				card.setAttribute("id", x["id"]);
+				card.setAttribute("class", "card");
+				card.addEventListener("click", function () {
+					location.href = "#" + this.id;
+					showDoa(this);
+				});
+				var h4 = document.createElement("h4");
+				h4.innerHTML = x["id"] + ". " + x["title"];
+				card.appendChild(h4);
+				column.appendChild(card);
+				list.appendChild(column);
+			}
+		}
+	}
+});
+
+window.addEventListener('hashchange', function(){
+	if (!window.location.href.includes("#")) {
+    document.getElementById("nama").innerHTML = "";
+    document.getElementById("arab").innerHTML = "";
+    document.getElementById("latin").innerHTML = "";
+    document.getElementById("arti").innerHTML = "";
+		document.getElementById("depan").style.display = "block";
+		document.getElementById("surat").style.display = "none";
+	}
+});
+</script>
+</html>
