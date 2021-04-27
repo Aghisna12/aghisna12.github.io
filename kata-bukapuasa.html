@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kata Buka Puasa</title>
+<style type="text/css">
+html {
+	height: 100%;
+}
+body {
+	background: no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+.wrap {
+	width: 90%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+	text-align: center;
+}
+</style>
+</head>
+<body>
+<div id="utama" class="wrap" style="display: none;">
+	<div style="color: rgba(255, 255, 255, 0.9);">
+		<h2>❛❛</h2>
+		<h3 id="quotes" style="font-family: cursive;"></h3>
+		<h2>❜❜</h2>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+
+function getRandom(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+var background = ['https://i.pinimg.com/originals/20/03/b0/2003b034862cf8e6e381c70a1fdf7391.jpg','https://i.pinimg.com/originals/74/fe/2f/74fe2ffacb674e8f5d244894b17127a5.jpg','https://i.pinimg.com/736x/eb/44/b7/eb44b71b9f8688e20fa0dddf85bdd2d2.jpg','https://i.pinimg.com/564x/33/11/82/331182146ff5cf2a5916e50eb93da4c7.jpg','https://i.pinimg.com/originals/e8/c2/93/e8c2938dc64001a6ff4e3e135d76b165.jpg'];
+
+var kataBukaPuasa = ["Mungkin jarak telah memisahkan kita, namun setidaknya aku masih bisa mengucapkan Selamat Berbuka Puasa.","Senyummu saat berbuka itu tiada duanya. – Selamat Berbuka Puasa.","Berbuka adalah perayaan kemenangan terbaik. Yang lagi buka bersama teman, keluarga, kekasih, selamat buka puasa!!","Selamat berbuka puasa bagi yang menjalankannya, jangan lupa berbukalah dengan yang manis-manis.","Berbuka adalah perayaan kemenangan terbaik. – Selamat Berbuka Puasa.","Sebuah senyuman yang ikhlas adalah sedekah. – Selamat Berbuka Puasa.","Selamat berbuka puasa. Semoga selalu dilancarkan dan diberikan kesehatan hingga akhir.","Selamat menantikan saat berbuka puasa bagi yang sedang menjalankan ibadah puasa. Semoga Allah melipatgandakan pahala kita. Amin..","Dalam penantian kadang kita akan menemukan indahnya hidup. – Selamat berbuka puasa.","Selamat berbuka puasa kawan. Semoga kita semua senantiasa dalam lindungan Allah SWT.","Kumandang adzan maghrib menandakan bahwa kita telah menang melawan hawa nafsu seharian. – Selamat Berbuka Puasa.","Suara Adzan sudah berkumandang Selamat berbuka puasa dan Selamat menunaikan ibadah Sholat Maghrib.","Adzan Maghrib telah Berkumandang, Saatnya Berbuka Puasa. Selamat Berbuka Puasa, Semoga Ibadah Kita di Ijabah.","Selamat buka puasa. Semoga puasa hari ini senantiasa membawa banyak kebaikan untuk kita dan orang lain.","Berbagilah makanan kepada orang lain untuk berbuka puasa maka puasamu akan terasa lebih bermakna, selamat berbuka!","Taburlah kebaikan kepada siapapun, maka kebaikan akan datang menghampirimu. – Selamat Berbuka Puasa.","Berbuka puasa adalah momen yang patut disyukuri karena terdapat banyak nikmat dan berkah dari Tuhan di sana. – Selamat Berbuka Puasa.","Selalu lakukan kebaikan dengan cara terbaik. Karena dengan cara itulah kedamaian akan tercipta. – Selamat Berbuka Puasa.","Cara terbaik menghukum orang yang telah menyakiti kita ialah dengan berbuat baik kepadanya. – Selamat Berbuka Puasa.","Selamat berbuka puasa bagi yang menjalankannya. Semoga ibadah kita diterima oleh Allah SWT. Amiin..","Hal yang paling sulit dalam sebuah kehidupan ini adalah mengalahkan diri sendiri. – Selamat Berbuka Puasa.","Menahan segala nafsu dan bersikap sabar adalah hal penting dalam berpuasa. Jadilah pribadi lebih baik dengan puasa mu. Selamat Berbuka Puasa.","Puasa membutuhkan banyak tenaga dan juga semangat. Adzan maghrib telah berkumandang, jadi selamat berbuka puasa.","Orang berbuka memang benar mendapat kebahagiaan, tetapi jangan sampai salah mengekspresikannya dengan berbuka yang berlebihan. – Selamat Berbuka Puasa.","Betapa syahdu penantian raga yang puasa untuk berbuka. Lebih indah lagi penantian hati yang beriman untuk jumpa Allah di surga. – Selamat berbuka puasa.","Hargai waktu dengan cara memperbanyak ibadah seperti kita menghargai adzan di bulan ramadhan ini. Selamat Berbuka Puasa.","Telah hilanglah dahaga, telah basahlah kerongkongan. Semoga ada pahala yang ditetapkan, jika Allah menghendaki. – Selamat Berbuka Puasa.","Selamat berbuka puasa. Jadikan ramadhan sebagai sarana untuk melakukan perbaikan diri dan menjadi insan yang lebih baik.","Jangan lupa berdo’a sebelum makan. Sudah kenyang ucapkan Alhamdulillah. Selamat berbuka puasa kuucapkan, untukmu dengan senyumku terindah.","Sehari sudah kita menahan lapar dan dahaga. Kini tibalah waktunya maghrib untuk kita berbuka puasa. Selamat berbuka puasa, semoga ibadah puasa kita diterima Allah SWT.","Selamat berbuka puasa kawan, semoga nikmat kebersamaan bersama keluarga di bulan Ramadhan ini menjadi keberkahan yang selalu kita dapati.","Hal yang paling membahagiakan adalah berbuka puasa bersama orang-orang yang tersayang. – Selamat Berbuka Puasa.","Bahagia itu sederhana. Berbuka puasa bareng seluruh keluarga dalam satu rumah. – Selamat Berbuka Puasa.","Bersyukur dalam segala hal maka kita akan bahagia dalam setiap keadaan. – Selamat Berbuka Puasa.","Sedikit dan mencukupi itu lebih baik daripada banyak tetapi melalaikan. – Selamat Berbuka Puasa.","Kebahagian tidak diukur dari seberapa banyak yang kita miliki, tapi seberapa banyak yang kita syukuri. – Selamat Berbuka Puasa.","Selamat berbuka puasa. Jangan lupa bersyukur atas nikmat yang Allah berikan hari ini.","Rasa syukur akan menambahkan nikmat yang sedikit, dan melipat gandakan sesuatu yang banyak. – Selamat Berbuka Puasa.","Kebahagiaan dirasakan oleh orang-orang yang bisa merasakan puas pada dirinya. – Selamat Berbuka Puasa.","Nikmatnya bersyukur. Indahnya bersabar. – Selamat Berbuka Puasa.","Jangan pernah menghitung apa yang telah kau berikan, tapi ingatlah apa yang telah kau terima. – Selamat Berbuka Puasa.","Jangan risaukan sesuatu yang tidak kita miliki. Tapi risaukanlah nikmat yang tidak kita syukuri. – Selamat Berbuka Puasa.","Segala puji bagimu ya Allah yang telah melindungiku ketika aku berpuasa dan melimpahkan rejekiMu untuk aku berbuka. – Selamat Berbuka Puasa.","Tuhan maha penyayang, maha pengasih. Hanya Tuhan tempat kembali, hanya Tuhan yang mampu mengembalikan kesedihan menjadi kebahagiaan. – Selamat Berbuka Puasa.","Kuawali dengan bismilah dan ku akhiri dengan bismilah dan alhamdullillah, selamat berbuka puasa, semoga puasa hari ini diterima oleh Allah SWT. Amin ya robalalamin.","Selamat berbuka Puasa, semoga puasa kita dan Ibadah lainnya diterima Allah SWT dan kita tergolong hamba2-Nya yang bertakwa. Amiin..","Orang yang berpuasa mempunyai dua kebahagiaan, yaitu berbahagia kala berbuka dan kala bertemu Allah (HR Muslim). – Selamat Berbuka Puasa.","Sesungguhnya bagi orang yang berpuasa ketika saat berbuka ada doa yang tidak tertolak (HR Ibnu Majah) – Selamat Berbuka Puasa."];
+
+document.getElementById("quotes").innerHTML = kataBukaPuasa[getRandom(0,kataBukaPuasa.length-1)];
+document.body.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('" + background[getRandom(0,background.length-1)] + "')";
+document.getElementById("utama").style.display = "block";
+
+</script>
+</html>
