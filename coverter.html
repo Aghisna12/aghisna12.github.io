@@ -1,0 +1,196 @@
+<!--
+name : Simple Value Converter
+by   : Aghisna12
+date : 9 - maret - 2022
+url  : https://aghisna12.github.io/converter.html
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Converter</title>
+<style type="text/css">
+* {
+	box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+	float: left;
+	width: 33.3%;
+	padding: 10px 20px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {
+	margin: 0 auto;
+}
+
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+	.column {
+		width: 100%;
+		display: block;
+		margin-bottom: 20px;
+	}
+}
+
+/* Style the counter cards */
+.card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	padding: 16px;
+	text-align: center;
+	background-color: #f1f1f1;
+}
+
+input {
+	width: 160px;	
+	padding: 6px 12px;
+	margin: 4px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+</style>
+</head>
+<body>
+<center>
+	<h1>Simpe Converter</h1>
+	<p>hexadecimal to decimal, decimal to hexadecimal & calculator hexadecimal</p>
+	<h4>by : Aghisna12</h4>
+</center>
+<div class="row">
+	<div class="column">
+		<div class="card">
+			<h3>Hex to Dec</h3>
+			<hr>
+			<p>Input Hex Value</p>
+			<input id="inputhex" type="text">
+			<button onclick="hex2dec()">submit</button>
+			<p>Result Dec Value</p>
+			<input id="resultdec" type="text">
+			<button onclick="copyhex2dec()">copy</button>
+		</div>
+	</div>
+
+	<div class="column">
+		<div class="card">
+			<h3>Hex Calculator</h3>
+			<hr>
+			<p>Input Hex Value</p>
+			<input id="hexcalleft" type="text">
+			<select id="hexcaltype">
+				<option value="sum">+</option>
+				<option value="sub">-</option>
+			</select>
+			<input id="hexcalright" type="text">
+			<br>
+			<button onclick="hexcal()" style="margin-top: 4px;">submit</button>
+			<p>Result Hex Value</p>
+			<input id="resulthexcal" type="text">
+			<button onclick="copyhexcal()">copy</button>
+		</div>
+	</div>
+
+	<div class="column">
+		<div class="card">
+			<h3>Dec to Hex</h3>
+			<hr>
+			<p>Input Dec Value</p>
+			<input id="inputdec" type="text">
+			<button onclick="dec2hex()">submit</button>
+			<p>Result Hex Value</p>
+			<input id="resulthex" type="text">
+			<button onclick="copydec2hex()">copy</button>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+
+function hex2dec() {
+	var hex = document.getElementById("inputhex").value;
+	document.getElementById("resultdec").value = parseInt(hex, 16);
+}
+
+document.getElementById("inputhex").addEventListener("keyup", function(event) {
+	if (event.keyCode === 13) {
+		event.preventDefault();
+		hex2dec();
+	}
+});
+
+function copyhex2dec() {
+	var copyres = document.getElementById("resultdec");
+	//copyres.select();
+	//copyres.setSelectionRange(0, 99999);
+	navigator.clipboard.writeText(copyres.value);
+}
+
+function hexcal() {
+	var left = document.getElementById("hexcalleft").value;
+	var right = document.getElementById("hexcalright").value;
+	var type = document.getElementById("hexcaltype").value;
+	if (type == "sum") {
+		document.getElementById("resulthexcal").value = (parseInt(left, 16) + parseInt(right, 16)).toString(16);
+	} else if (type == "sub") {
+		document.getElementById("resulthexcal").value = (parseInt(left, 16) - parseInt(right, 16)).toString(16);
+	}
+}
+
+document.getElementById("hexcalleft").addEventListener("keyup", function(event) {
+	if (event.keyCode === 13) {
+		event.preventDefault();
+		hexcal();
+	}
+});
+
+document.getElementById("hexcalright").addEventListener("keyup", function(event) {
+	if (event.keyCode === 13) {
+		event.preventDefault();
+		hexcal();
+	}
+});
+
+function copyhexcal() {
+	var copyres = document.getElementById("resulthexcal");
+	//copyres.select();
+	//copyres.setSelectionRange(0, 99999);
+	navigator.clipboard.writeText(copyres.value);
+}
+
+function dec2hex() {
+	var dec = document.getElementById("inputdec").value;
+	var num = parseInt(dec);
+	document.getElementById("resulthex").value = num.toString(16);
+}
+
+document.getElementById("inputdec").addEventListener("keyup", function(event) {
+	if (event.keyCode === 13) {
+		event.preventDefault();
+		dec2hex();
+	}
+});
+
+function copydec2hex() {
+	var copyres = document.getElementById("resulthex");
+	//copyres.select();
+	//copyres.setSelectionRange(0, 99999);
+	navigator.clipboard.writeText(copyres.value);
+}
+
+</script>
+</html>
